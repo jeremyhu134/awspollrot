@@ -1,0 +1,375 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.main-content {
+    padding: 1rem;
+}
+
+
+.question-box {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.answer {
+    background-color: #e1e1e1;
+    padding: 0.75rem;
+    border-radius: 25px;
+    margin-bottom: 0.75rem;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 1rem 2rem;
+}
+
+.navbar-right a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar-right a:hover {
+    text-decoration: underline;
+}
+
+/* Layout Structure */
+.content-layout {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Left Section: Main Content */
+.left-section {
+    flex: 3;
+    min-height: 700px;
+}
+
+/* Middle Button: Next Poll */
+.middle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.middle-button button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+/* Right Sidebar: Comments */
+.right-section {
+    position: relative;
+    flex: 2;
+    max-height: 700px; /* Limits the height of the comments section */
+    min-height: 300px; /* Ensures a minimum height */
+    border-left: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Important to hide overflow before scrolling */
+}
+
+/* Scrollable comment area */
+.comments-scroll {
+    flex: 1; /* Allows it to grow and shrink, taking available space */
+    overflow-y: auto; /* Enables vertical scrolling when content overflows */
+    padding: 0.5rem;
+    background: #f8f8f8;
+}
+
+/* New: Styles for each individual comment container */
+.comment-item {
+    background: white;
+    margin-bottom: 0.8rem; /* Space between comments */
+    padding: 1rem; /* Padding inside each comment box */
+    border-radius: 8px; /* More rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    word-wrap: break-word; /* Ensures long words wrap */
+    overflow-wrap: break-word; /* Modern alternative to word-wrap */
+}
+
+/* Styles for the comment author's name */
+.comment-author {
+    font-weight: bold;
+    margin-bottom: 0.3rem; /* Small space below username */
+    color: #333; /* Slightly darker color for readability */
+}
+
+/* Styles for the comment text */
+.comment-text {
+    /* No border around this, as per your request */
+    padding-left: 0.5rem; /* Slight indentation for the text */
+    border-left: 2px solid #eee; /* Optional: subtle line for visual separation */
+    color: #555; /* Slightly lighter text color */
+}
+
+/* Styles for the "No comments yet" placeholder */
+.comment-placeholder {
+    background: white;
+    margin-bottom: 0.8rem;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+    color: #888;
+}
+
+
+/* Fixed comment box at the bottom */
+.comment-box {
+    border-top: 1px solid #ccc;
+    padding: 0.5rem;
+    background: white;
+    flex-shrink: 0; /* Prevents it from shrinking */
+}
+
+.comment-box form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.comment-box input {
+    flex: 1;
+    padding: 0.4rem;
+}
+
+.comment-box button {
+    padding: 0.4rem 1rem;
+}
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.login-box {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 300px;
+}
+
+.login-box h2 {
+    margin-bottom: 1.5rem;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background-color: #555;
+}
+
+.signup-link {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.signup-link a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+.flash-message {
+    background: #eee;
+    color: #000;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 2px;
+    margin-bottom: 8px;
+  }
+
+.right-section h2 {
+    margin-top: 0;
+}
+
+.right-section > div {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    background: #fff;
+}
+
+.create-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.create-button:hover {
+    background-color: #0056b3;
+}
+
+/* Styles for the Create Poll Form */
+.create-poll-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Adjust as needed */
+}
+
+.create-poll-box {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 90%; /* Adjust width for responsiveness */
+    max-width: 500px; /* Max width for larger screens */
+}
+
+.create-poll-box h2 {
+    margin-bottom: 1.5rem;
+}
+
+.create-poll-box .form-group {
+    margin-bottom: 1rem;
+}
+
+.create-poll-box .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box; /* Include padding in element's total width/height */
+}
+
+.create-poll-box .btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-poll-box .btn-primary:hover {
+    background-color: #555;
+}
+
+.create-poll-box .errors {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    color: red;
+    font-size: 0.9em;
+    text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .create-poll-box {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-poll-box {
+        padding: 1rem;
+        width: 100%;
+    }
+    .create-poll-box .form-control,
+    .create-poll-box .btn-primary {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.polls-list {
+    overflow-y: auto;
+    max-height: 700px;
+    padding-right: 1rem;
+}
+
+/* New/Modified styles for poll buttons */
+.poll-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Space between buttons */
+}
+
+.answer-button {
+    background-color: #e1e1e1; /* Default background*/
+    padding: 1rem 1.5rem; /* Adjusted padding for bigger buttons */
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 1.2rem; /* Increased font size */
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    transition: background-color 0.3s ease; /* Smooth transition for color change */
+}
+
+.answer-button:hover {
+    background-color: #d1d1d1; /* Slightly darker on hover */
+}
+
+.answer-button.selected-answer {
+    background-color: green; /* Green when selected*/
+    color: white; /* White text for better contrast*/
+    border-color: darkgreen;
+}

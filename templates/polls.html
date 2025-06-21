@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-layout">
+    <!-- Left Section: Question + Answers -->
+    {% if poll %}
+        <div class="left-section">
+            <div class="question-box">
+                <h2>{{poll.question}}</h2>
+            </div>
+            
+            <div class="poll-options" data-poll-id="{{ poll.id }}">
+                {% if poll.option_a %}
+                    <button class="answer-button" data-option="A">{{poll.option_a}}</button>
+                {% endif %}
+                {% if poll.option_b %}
+                    <button class="answer-button" data-option="B">{{poll.option_b}}</button>
+                {% endif %}
+                {% if poll.option_c %}
+                    <button class="answer-button" data-option="C">{{poll.option_c}}</button>
+                {% endif %}
+                {% if poll.option_d %}
+                    <button class="answer-button" data-option="D">{{poll.option_d}}</button>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Middle: Next Poll Button -->
+        <div class="middle-button">
+            <form method="get" action="{{ url_for('index') }}">
+                <button type="submit">Next Poll</button>
+            </form>
+        </div>
+
+        <!-- Right Section: Comments -->
+        <div class="right-section">
+            <div class="comments-scroll" id="comments-scroll">
+                {% if comments %}
+                    {% for comment in comments %}
+                        <div class="comment-item"> {# New container for each comment #}
+                            <div class="comment-author"><strong>{{ comment.commenter.display_name }}</strong></div> {# For username #}
+                            <div class="comment-text">{{ comment.the_comment }}</div> {# For comment content #}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {# Changed text for placeholder comment #}
+                    <div class="comment-placeholder">No comments yet. Be the first to comment!</div> 
+                {% endif %}
+            </div>
+            <div class="comment-box">
+                <form id="comment-form">
+                    <input type="text" placeholder="Write a comment..." name="comment" id="comment-input">
+                    <button type="submit">Post</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <h2>No polls available yet.</h2>
+    {% endif %}
+</div>
+
+
+<script>
+    var userLoggedIn = "{{ logged_in | tojson }}";
+    userLoggedIn = (userLoggedIn === "true")
+    document.addEventListener('DOMContentLoaded', function() {
+        const socket = io(); // Connect to Socket.IO
+        const answerButtons = document.querySelectorAll('.answer-button');
+        const pollOptionsContainer = document.querySelector('.poll-options');
+        const pollId = pollOptionsContainer ? pollOptionsContainer.dataset.pollId : null;
+
+        const commentForm = document.getElementById('comment-form');
+        const commentInput = document.getElementById('comment-input');
+        const commentsScrollDiv = document.getElementById('comments-scroll');
+        
+        if ("{{ user_vote }}") {
+            answerButtons.forEach(button => {
+                if (button.dataset.option == "{{ user_vote }}") {
+                    button.classList.add('selected-answer');
+                }
+            });
+        }
+
+
+        function addCommentToDisplay(displayName, commentText) {
+            const newCommentItem = document.createElement('div');
+            newCommentItem.classList.add('comment-item'); // Use the new class
+
+            const authorDiv = document.createElement('div');
+            authorDiv.classList.add('comment-author');
+            authorDiv.innerHTML = `<strong>${displayName}</strong>`; // Bold tag inside
+
+            const textDiv = document.createElement('div');
+            textDiv.classList.add('comment-text');
+            textDiv.textContent = commentText; // Use textContent to avoid XSS issues and for proper text handling
+
+            newCommentItem.appendChild(authorDiv);
+            newCommentItem.appendChild(textDiv);
+            commentsScrollDiv.appendChild(newCommentItem);
+            // Scroll to the bottom to show new comment
+            commentsScrollDiv.scrollTop = commentsScrollDiv.scrollHeight;
+        }
+
+
+
+        socket.on('new_comment', function(commentData) {
+            const placeholderComment = commentsScrollDiv.querySelector('.comment-placeholder');
+            if (placeholderComment && placeholderComment.textContent === 'No comments yet. Be the first to comment!') {
+                commentsScrollDiv.innerHTML = ''; 
+            }
+            addCommentToDisplay(commentData.display_name, commentData.the_comment);
+        });
+
+
+        answerButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (!userLoggedIn) { // Safely convert Flask boolean to JS boolean
+                    alert("You must be logged in to vote!");
+                    return;
+                }
+                // Remove 'selected-answer' from all buttons in the current poll
+                answerButtons.forEach(btn => btn.classList.remove('selected-answer'));
+
+                // Add 'selected-answer' to the clicked button
+                this.classList.add('selected-answer');
+
+                const selectedOption = this.dataset.option;
+                
+                if (pollId && selectedOption) {
+                    // Emit the vote data to the server via Socket.IO
+                    socket.emit('submit_vote', {
+                        poll_id: pollId,
+                        selected_option: selectedOption
+                    });
+                } else {
+                    console.error("Could not get poll ID or selected option.");
+                }
+            });
+        });
+
+        commentForm.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            if (!userLoggedIn) {
+                alert("You must be logged in to comment!");
+                return;
+            }
+
+            const commentText = commentInput.value.trim();
+            if (commentText === '') {
+                return;
+            }
+
+            if (pollId) {
+                socket.emit('submit_comment', {
+                    poll_id: pollId,
+                    comment_text: commentText
+                });
+                commentInput.value = '';
+            } 
+        });
+    });
+</script>
+{% endblock %}

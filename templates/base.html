@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PollRot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <h1>PollRot</h1>
+        </div>
+        <div class="navbar-right">
+            <a href="{{ url_for('index') }}">Polls</a>
+            {% if logged_in %}
+                <a href="{{ url_for('account') }}">Account</a>
+            {% else %}
+                <a href="{{ url_for('log_in') }}">Sign in</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

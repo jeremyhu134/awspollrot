@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="create-poll-wrapper">
+    <div class="create-poll-box">
+        <h2>New Poll</h2>
+        <form method="POST" action="">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.question(class="form-control", placeholder="Question") }}
+                {% if form.question.errors %}
+                    <ul class="errors">
+                        {% for error in form.question.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.option_a(class="form-control", placeholder="Option A") }}
+                {% if form.option_a.errors %}
+                    <ul class="errors">
+                        {% for error in form.option_a.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.option_b(class="form-control", placeholder="Option B") }}
+                {% if form.option_b.errors %}
+                    <ul class="errors">
+                        {% for error in form.option_b.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.option_c(class="form-control", placeholder="Option C (optional)") }}
+                {% if form.option_c.errors %}
+                    <ul class="errors">
+                        {% for error in form.option_c.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.option_d(class="form-control", placeholder="Option D (optional)") }}
+                {% if form.option_d.errors %}
+                    <ul class="errors">
+                        {% for error in form.option_d.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+</div>
+{% endblock %}

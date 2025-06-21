@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-layout">
+    <!-- Left: Person's Account Info -->
+    <div class="left-section">
+        <h2>{{current_user.display_name}}'s Account</h2>
+        <!-- Add more user info here if desired -->
+        <p><a href="{{ url_for('log_out') }}">Logout</a></p>
+    </div>
+
+    <!-- Right: My Polls Scrollable Section -->
+    <div class="right-section">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>My Polls</h2>
+            <a href="{{ url_for('create_poll') }}" class="create-button">Create New Poll</a>
+        </div>
+        <div class="polls-list">
+            {% for poll in polls %}
+                <div class="question-box">
+                    {# Changed h4 to h2 for consistent styling with polls.html #}
+                    <h2>{{ poll.question }}</h2> 
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><div class="answer"><strong>A:</strong> {{ poll.option_a }}</div></li>
+                        <li><div class="answer"><strong>B:</strong> {{ poll.option_b }}</div></li>
+                        {% if poll.option_c %}
+                            <li><div class="answer"><strong>C:</strong> {{ poll.option_c }}</div></li>
+                        {% endif %}
+                        {% if poll.option_d %}
+                            <li><div class="answer"><strong>D:</strong> {{ poll.option_d }}</div></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% else %}
+                <p>No polls found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
