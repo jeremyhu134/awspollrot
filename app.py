@@ -13,18 +13,23 @@ import uuid
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:pollrotisthebest134@pollrot-database.c1yiioqcsrjf.us-east-2.rds.amazonaws.com/PollrotDatabase'
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://myuser:mypass@myhost.amazonaws.com:5432/mydb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # or your SMTP server
 app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'pollrot872@gmail.com'
-app.config['MAIL_PASSWORD'] = 'xkdaesfyodaocdkf'
-app.config['MAIL_DEFAULT_SENDER'] = 'pollrot872@gmail.com'
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 mail = Mail(app)
 
@@ -37,7 +42,7 @@ with app.app_context():
 
 from models import Poll
 
-app.secret_key = 'husrules'
+
 
 
 
