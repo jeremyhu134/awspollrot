@@ -65,6 +65,10 @@
 
 
 <script>
+    const socket = io({
+    transports: ['websocket']
+    });
+
     var userLoggedIn = "{{ logged_in | tojson }}";
     userLoggedIn = (userLoggedIn === "true")
     document.addEventListener('DOMContentLoaded', function() {
