@@ -5,6 +5,8 @@ from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer
 from sqlalchemy.sql.expression import func
 from flask_socketio import SocketIO, emit
+from flask_cors import CORS
+
 
 from database import db
 from models import Poll, User, Vote, Comment
@@ -12,6 +14,7 @@ from forms import SignUpForm, LoginForm, CreatePollForm
 import uuid
 
 app = Flask(__name__)
+CORS(app, origins=["https://pollrot.com", "https://www.pollrot.com"])
 
 from dotenv import load_dotenv
 import os
