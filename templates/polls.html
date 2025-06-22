@@ -11,7 +11,11 @@
             
             <div class="poll-options" data-poll-id="{{ poll.id }}">
                 {% if poll.option_a %}
-                    <button class="answer-button" data-option="A">{{poll.option_a}}</button>
+                    <button class="answer-button {% if user_vote %}disabled{% endif %}" 
+                            data-option="A" 
+                            style='background: linear-gradient(to right, green \{\{ vote_percentages[\"A\"] \}\}\%, #e1e1e1 \{\{ vote_percentages[\"A\"] \}\}\%); color: \{\% if vote_percentages[\"A\"] \> 0 \%\}white\{\% else \%\}black\{\% endif \%\};'>
+                        {{ poll.option_a }} ({{ vote_percentages['A']|round(1) }}%)
+                    </button>
                 {% endif %}
                 {% if poll.option_b %}
                     <button class="answer-button" data-option="B">{{poll.option_b}}</button>

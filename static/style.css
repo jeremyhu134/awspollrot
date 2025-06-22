@@ -373,3 +373,9 @@ body {
     color: white; /* White text for better contrast*/
     border-color: darkgreen;
 }
+
+.answer-button.disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.7;
+}

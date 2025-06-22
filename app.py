@@ -18,7 +18,7 @@ import os
 load_dotenv()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://myuser:mypass@myhost.amazonaws.com:5432/mydb'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pollrot.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -96,13 +96,28 @@ def index():
                return render_template("polls.html",poll=None)
 
         comments = Comment.query.filter_by(poll_id=poll.id).order_by(Comment.id).all()
+
+
+        votes = Vote.query.filter_by(poll_id=poll.id).all()
+        total_votes = len(votes)
+        vote_counts = Counter(v.selected_option for v in votes)
+
+        # Calculate percentages or zero if no votes yet
+        percentages = {
+                'A': (vote_counts.get('A', 0) / total_votes * 100) if total_votes > 0 else 0,
+                'B': (vote_counts.get('B', 0) / total_votes * 100) if total_votes > 0 else 0,
+                'C': (vote_counts.get('C', 0) / total_votes * 100) if total_votes > 0 else 0,
+                'D': (vote_counts.get('D', 0) / total_votes * 100) if total_votes > 0 else 0,
+        }
+
+
         user_vote = None
         user_id = session.get('user_id')
         if user_id:      
                 vote = Vote.query.filter_by(user_id=user_id, poll_id=poll.id).first()
                 if vote: 
                         user_vote = vote.selected_option
-                        return render_template("polls.html", poll=poll, user_vote=user_vote,comments=comments)
+                        return render_template("polls.html", poll=poll, user_vote=user_vote, vote_percentages=percentages,comments=comments)
         
         
         return render_template("polls.html",poll=poll,comments=comments)
