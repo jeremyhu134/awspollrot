@@ -50,7 +50,7 @@
 
                         {% if poll.option_c %}
                             <li>
-                                <div class="answer" style="background: linear-gradient(to right, green \{\{ percent_c \}\}\%, #e1e1e1 \{\{ percent_c \}\}\%); padding: 5px;">
+                                <div class="answer" style="background: linear-gradient(to right, green {{ percent_c }}%, #e1e1e1 {{ percent_c }}%); padding: 5px;">
                                     <strong>C:</strong> {{ poll.option_c }} ({{ percent_c | round(1) }}%)
                                 </div>
                             </li>
@@ -58,7 +58,7 @@
 
                         {% if poll.option_d %}
                             <li>
-                                <div class="answer" style="background: linear-gradient(to right, green \{\{ percent_d \}\}\%, #e1e1e1 \{\{ percent_d \}\}\%); padding: 5px;">
+                                <div class="answer" style="background: linear-gradient(to right, green {{ percent_d }}%, #e1e1e1 {{ percent_d }}%); padding: 5px;">
                                     <strong>D:</strong> {{ poll.option_d }} ({{ percent_d | round(1) }}%)
                                 </div>
                             </li>
