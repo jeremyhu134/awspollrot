@@ -370,9 +370,11 @@ body {
 }
 
 .answer-button.selected-answer {
-    background-color: green; /* Green when selected*/
-    color: white; /* White text for better contrast*/
-    border-color: darkgreen;
+    background-color: #006400; /* Dark green */
+    color: white; /* Text stays readable */
+    border-color: #004d00; /* Even darker border */
+    box-shadow: 0 0 5px rgba(0, 100, 0, 0.7); /* Optional glow effect */
+    font-weight: bold;
 }
 
 .answer-button.disabled {
