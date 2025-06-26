@@ -11,20 +11,32 @@
             
             <div class="poll-options" data-poll-id="{{ poll.id }}">
                 {% if poll.option_a %}
-                    <button class="answer-button {% if user_vote %}disabled{% endif %}" 
+                    <button class="answer-button" 
                             data-option="A" 
                             style='background: linear-gradient(to right, green \{\{ vote_percentages[\"A\"] \}\}\%, #e1e1e1 \{\{ vote_percentages[\"A\"] \}\}\%); color: \{\% if vote_percentages[\"A\"] \> 0 \%\}white\{\% else \%\}black\{\% endif \%\};'>
                         {{ poll.option_a }} ({{ vote_percentages['A']|round(1) }}%)
                     </button>
                 {% endif %}
                 {% if poll.option_b %}
-                    <button class="answer-button" data-option="B">{{poll.option_b}}</button>
+                    <button class="answer-button" 
+                            data-option="B" 
+                            style='background: linear-gradient(to right, green \{\{ vote_percentages[\"B\"] \}\}\%, #e1e1e1 \{\{ vote_percentages[\"B\"] \}\}\%); color: \{\% if vote_percentages[\"B\"] \> 0 \%\}white\{\% else \%\}black\{\% endif \%\};'>
+                        {{ poll.option_b }} ({{ vote_percentages['B']|round(1) }}%)
+                    </button>
                 {% endif %}
                 {% if poll.option_c %}
-                    <button class="answer-button" data-option="C">{{poll.option_c}}</button>
+                    <button class="answer-button" 
+                            data-option="C" 
+                            style='background: linear-gradient(to right, green \{\{ vote_percentages[\"C\"] \}\}\%, #e1e1e1 \{\{ vote_percentages[\"C\"] \}\}\%); color: \{\% if vote_percentages[\"C\"] \> 0 \%\}white\{\% else \%\}black\{\% endif \%\};'>
+                        {{ poll.option_c }} ({{ vote_percentages['C']|round(1) }}%)
+                    </button>
                 {% endif %}
                 {% if poll.option_d %}
-                    <button class="answer-button" data-option="D">{{poll.option_d}}</button>
+                    <button class="answer-button" 
+                            data-option="D" 
+                            style='background: linear-gradient(to right, green \{\{ vote_percentages[\"D\"] \}\}\%, #e1e1e1 \{\{ vote_percentages[\"D\"] \}\}\%); color: \{\% if vote_percentages[\"D\"] \> 0 \%\}white\{\% else \%\}black\{\% endif \%\};'>
+                        {{ poll.option_d }} ({{ vote_percentages['D']|round(1) }}%)
+                    </button>
                 {% endif %}
             </div>
         </div>
