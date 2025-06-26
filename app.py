@@ -6,6 +6,7 @@ from itsdangerous import URLSafeTimedSerializer
 from sqlalchemy.sql.expression import func
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
+from collections import Counter
 
 
 from database import db
@@ -325,6 +326,8 @@ def inject_user():
     user = User.query.get(user_id) if user_id else None
     return dict(current_user=user)
 
+import eventlet
+eventlet.monkey_patch()
 
 if __name__ == '__main__':
         socketio.run(app,host='0.0.0.0',port=8000)
