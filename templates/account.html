@@ -18,18 +18,47 @@
         <div class="polls-list">
             {% for poll in polls %}
                 <div class="question-box">
-                    {# Changed h4 to h2 for consistent styling with polls.html #}
-                    <h2>{{ poll.question }}</h2> 
+                    <h2>{{ poll.question }}</h2>
+                    {% set total_votes = (poll.votes_a or 0) + (poll.votes_b or 0) + (poll.votes_c or 0) + (poll.votes_d or 0) %}
+
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li><div class="answer"><strong>A:</strong> {{ poll.option_a }}</div></li>
-                        <li><div class="answer"><strong>B:</strong> {{ poll.option_b }}</div></li>
-                        {% if poll.option_c %}
-                            <li><div class="answer"><strong>C:</strong> {{ poll.option_c }}</div></li>
+                        {% if poll.option_a %}
+                            {% set percent_a = ((poll.votes_a or 0) / total_votes * 100) if total_votes > 0 else 0 %}
+                            <li>
+                                <div class="answer" style="background: linear-gradient(to right, green {{ percent_a }}%, #e1e1e1 {{ percent_a }}%); padding: 5px;">
+                                    <strong>A:</strong> {{ poll.option_a }} ({{ percent_a | round(1) }}%)
+                                </div>
+                            </li>
                         {% endif %}
+
+                        {% if poll.option_b %}
+                            {% set percent_b = ((poll.votes_b or 0) / total_votes * 100) if total_votes > 0 else 0 %}
+                            <li>
+                                <div class="answer" style="background: linear-gradient(to right, green {{ percent_b }}%, #e1e1e1 {{ percent_b }}%); padding: 5px;">
+                                    <strong>B:</strong> {{ poll.option_b }} ({{ percent_b | round(1) }}%)
+                                </div>
+                            </li>
+                        {% endif %}
+
+                        {% if poll.option_c %}
+                            {% set percent_c = ((poll.votes_c or 0) / total_votes * 100) if total_votes > 0 else 0 %}
+                            <li>
+                                <div class="answer" style="background: linear-gradient(to right, green {{ percent_c }}%, #e1e1e1 {{ percent_c }}%); padding: 5px;">
+                                    <strong>C:</strong> {{ poll.option_c }} ({{ percent_c | round(1) }}%)
+                                </div>
+                            </li>
+                        {% endif %}
+
                         {% if poll.option_d %}
-                            <li><div class="answer"><strong>D:</strong> {{ poll.option_d }}</div></li>
+                            {% set percent_d = ((poll.votes_d or 0) / total_votes * 100) if total_votes > 0 else 0 %}
+                            <li>
+                                <div class="answer" style="background: linear-gradient(to right, green {{ percent_d }}%, #e1e1e1 {{ percent_d }}%); padding: 5px;">
+                                    <strong>D:</strong> {{ poll.option_d }} ({{ percent_d | round(1) }}%)
+                                </div>
+                            </li>
                         {% endif %}
                     </ul>
+                    <p><em>Total votes: {{ total_votes }}</em></p>
                 </div>
             {% else %}
                 <p>No polls found.</p>
