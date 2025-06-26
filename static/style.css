@@ -350,6 +350,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.5rem; /* Space between buttons */
+    z-index: 1;
 }
 
 .answer-button {
