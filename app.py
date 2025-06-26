@@ -124,7 +124,7 @@ def index():
                         return render_template("polls.html", poll=poll, user_vote=user_vote, vote_percentages=percentages,comments=comments)
         
         
-        return render_template("polls.html",poll=poll,comments=comments)
+        return render_template("polls.html",poll=poll, vote_percentages=percentages, comments=comments)
 
 
 
