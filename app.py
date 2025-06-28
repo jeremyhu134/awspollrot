@@ -42,6 +42,7 @@ db.init_app(app)
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="eventlet")
 
 with app.app_context():
+        db.drop_all()
         db.create_all()
 
 from models import Poll
