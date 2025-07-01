@@ -223,6 +223,22 @@ def create_poll():
 
 
 
+@app.route('/account/deletepoll/<int:poll_id>', methods=['POST'])
+def delete_poll(poll_id):
+    user_id = session.get('user_id')
+    poll = Poll.query.get_or_404(poll_id)
+
+    if poll.created_by != user_id:
+        flash("Unauthorized to delete this poll.", "danger")
+        return redirect(url_for('account'))
+
+    db.session.delete(poll)
+    db.session.commit()
+    flash("Poll deleted successfully.", "success")
+    return redirect(url_for('account'))
+
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def log_in():
         form = LoginForm()

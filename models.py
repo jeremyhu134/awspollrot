@@ -28,9 +28,9 @@ class Poll(db.Model):
 
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    votes = db.relationship('Vote', backref='poll', lazy=True)
+    votes = db.relationship('Vote', backref='poll', lazy=True, cascade="all, delete-orphan")
 
-    comments = db.relationship('Comment', backref='poll', lazy=True)
+    comments = db.relationship('Comment', backref='poll', lazy=True, cascade="all, delete-orphan")
 
 
 
