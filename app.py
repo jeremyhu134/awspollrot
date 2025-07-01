@@ -223,7 +223,7 @@ def create_poll():
 
 
 
-@app.route('/account/deletepoll/<int:poll_id>', methods=['GET','POST'])
+@app.route('/account/deletepoll/<int:poll_id>', methods=['POST'], endpoint='delete_poll')
 def delete_poll(poll_id):
     user_id = session.get('user_id')
     poll = Poll.query.get_or_404(poll_id)
